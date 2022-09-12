@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fooderlich/recipe.dart';
+import 'package:fooderlich/recipe_detail.dart';
 
 void main() {
   runApp(const RecipeApp());
@@ -15,10 +16,8 @@ class RecipeApp extends StatelessWidget {
     return MaterialApp(
       title: 'Recipe Calculator',
       theme: theme.copyWith(
-        colorScheme: theme.colorScheme.copyWith(
-          primary: Colors.grey,
-          secondary: Colors.black
-        ),
+        colorScheme: theme.colorScheme
+            .copyWith(primary: Colors.grey, secondary: Colors.black),
       ),
       home: const MyHomePage(title: 'Recipe Calculator'),
     );
@@ -34,7 +33,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,23 +41,32 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: SafeArea(
-        // TODO: Replace child Container()
-        child: ListView.builder(
-          itemCount: Recipe.samples.length,
-          itemBuilder: (BuildContext context, int index){
-            // TODO: Add gesture detector
-            return buildRecipeCard(Recipe.samples[index]);
-          },
-        )
-      ),
+          // TODO: Replace child Container()
+          child: ListView.builder(
+        itemCount: Recipe.samples.length,
+        itemBuilder: (BuildContext context, int index) {
+          // TODO: Add gesture detector
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  // TODO: Replace with RecipeDetail()
+                  return RecipeDetail(recipe: Recipe.samples[index]);
+                }),
+              );
+            },
+            child: buildRecipeCard(Recipe.samples[index]),
+          );
+        },
+      )),
     );
   }
-  Widget buildRecipeCard(Recipe recipe){
+
+  Widget buildRecipeCard(Recipe recipe) {
     return Card(
       elevation: 2.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0)
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -71,10 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               recipe.label,
               style: const TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'Palatino'
-              ),
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'Palatino'),
             )
           ],
         ),
