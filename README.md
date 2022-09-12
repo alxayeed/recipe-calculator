@@ -11,7 +11,7 @@
   </tr>
   <tr>
     <td><img src="ss/list.png" width="100%" height="70%" /></td>
-    <td><img src="ss/details" width="100%" height="70%" /></td>
+    <td><img src="ss/details.png" width="100%" height="70%" /></td>
   </tr>
  </table>
 <br/>
